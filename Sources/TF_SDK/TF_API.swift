@@ -32,40 +32,40 @@ extension TF_API {
         }
     }
     ///해쉬키(Hashkey)는 보안을 위한 요소로 사용자가 보낸 요청 값을 중간에 탈취하여 변조하지 못하도록 하는데 사용됩니다. 보안을 위해 POST로 보내는 요청(주로 주문/정정/취소 API 해당)은 사전에 body 값 암호화가 필요하며, 이 때 hashkey를 활용한 암호화를 진행합니다.
-    struct hashkey:APIITEM {
-        var server: TargetServer = .hantoo
+    public struct hashkey:APIITEM {
+        public var server: TargetServer = .hantoo
         
-        struct Response:Codable {
+        public struct Response:Codable {
             let jsonBody:String
             let HASH:String
         }
-        var requestHeaderModel = EmptyModel.self
-        var responseHeaderModel = EmptyModel.self
-        var requestModel = Data.self
-        var responseModel = Response.self
-        var method: Alamofire.HTTPMethod = .post
-        var path: String = "/uapi/hashkey"
+        public var requestHeaderModel = EmptyModel.self
+        public var responseHeaderModel = EmptyModel.self
+        public var requestModel = Data.self
+        public var responseModel = Response.self
+        public var method: Alamofire.HTTPMethod = .post
+        public var path: String = "/uapi/hashkey"
     }
     ///접근토큰 발급
-    struct tokenP:APIITEM, AdditionalExec {
-        var server: TargetServer = .hantoo
+    public struct tokenP:APIITEM, AdditionalExec {
+        public var server: TargetServer = .hantoo
         
-        struct Request:Codable {
+        public struct Request:Codable {
             let grant_type:String = "client_credentials"
             let appkey:String
             let appsecret:String
         }
-        struct Response:Codable {
+        public struct Response:Codable {
             let access_token:String
             let token_type:String
             let expires_in:Int
         }
-        var requestHeaderModel = EmptyModel.self
-        var responseHeaderModel = EmptyModel.self
-        var requestModel = Request.self
-        var responseModel = Response.self
-        var method: Alamofire.HTTPMethod = .post
-        var path: String = "/oauth2/tokenP"
+        public var requestHeaderModel = EmptyModel.self
+        public var responseHeaderModel = EmptyModel.self
+        public var requestModel = Request.self
+        public var responseModel = Response.self
+        public var method: Alamofire.HTTPMethod = .post
+        public var path: String = "/oauth2/tokenP"
         func exec(response: Decodable) {
             guard let result = response as? Response else {return}
             TF_User.shared.access_token = result.access_token
@@ -73,9 +73,9 @@ extension TF_API {
         }
     }
     ///주식 잔고조회 API입니다. 실전계좌의 경우, 한 번의 호출에 최대 50건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다. 모의계좌의 경우, 한 번의 호출에 최대 20건까지 확인 가능하며, 이후의 값은 연속조회를 통해 확인하실 수 있습니다.
-    struct inquire_balance:APIITEM {
-        var server: TargetServer = .hantoo
-        struct RequestHeader:Codable {
+    public struct inquire_balance:APIITEM {
+        public var server: TargetServer = .hantoo
+        public struct RequestHeader:Codable {
             ///고객식별키
             var personalseckey:String?
             ///거래ID
@@ -95,7 +95,7 @@ extension TF_API {
             ///Global UID
             var gt_uid:String?
         }
-        struct Request:Codable {
+        public struct Request:Codable {
             ///종합계좌번호
             var CANO:String
             ///계좌상품코드
@@ -119,7 +119,7 @@ extension TF_API {
             ///연속조회키100
             var CTX_AREA_NK100:String
         }
-        struct ResponseHeader:Codable {
+        public struct ResponseHeader:Codable {
             ///거래ID
             let tr_id:String
             ///연속 거래 여부
@@ -127,7 +127,7 @@ extension TF_API {
             ///Global UID
             let gt_uid:String
         }
-        struct Output1:Codable {
+        public struct Output1:Codable {
             ///상품번호
             let pdno:String
             ///상품명
@@ -181,7 +181,7 @@ extension TF_API {
             ///주식대출단가
             let stck_loan_unpr:String
         }
-        struct Output2:Codable {
+        public struct Output2:Codable {
             ///예수금총금액
             let dnca_tot_amt:String
             ///익일정산금액
@@ -231,7 +231,7 @@ extension TF_API {
             ///자산증감수익율
             let asst_icdc_erng_rt:String
         }
-        struct Response:Codable {
+        public struct Response:Codable {
             ///성공 실패 여부
             let rt_cd:String
             ///응답코드
@@ -247,11 +247,11 @@ extension TF_API {
             ///output2
             let output2:[Output2]
         }
-        var requestHeaderModel = RequestHeader.self
-        var responseHeaderModel = ResponseHeader.self
-        var requestModel = Request.self
-        var responseModel = Response.self
-        var method: Alamofire.HTTPMethod = .get
-        var path: String = "/uapi/domestic-stock/v1/trading/inquire-balance"
+        public var requestHeaderModel = RequestHeader.self
+        public var responseHeaderModel = ResponseHeader.self
+        public var requestModel = Request.self
+        public var responseModel = Response.self
+        public var method: Alamofire.HTTPMethod = .get
+        public var path: String = "/uapi/domestic-stock/v1/trading/inquire-balance"
     }
 }
