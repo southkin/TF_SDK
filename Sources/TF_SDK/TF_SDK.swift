@@ -55,16 +55,15 @@ public struct MultipartItem : Codable {
     var mimeType:String
     var fileName:String?
 }
-protocol MultipartUpload {
+public protocol MultipartUpload {
 }
-protocol AdditionalExec {
+public protocol AdditionalExec {
     func exec(response:Decodable)
 }
-protocol HashAdd {
+public protocol HashAdd {
 }
-extension HashAdd {
+public extension HashAdd {
     func preExec(headers:HTTPHeaders,body:Data,url:URL,run:@escaping(HTTPHeaders,Data,URL)->()) {
-        var headers = headers
     }
 }
 fileprivate var API_STORED_DATA:[String:(Decodable,Decodable)] = .init()
@@ -114,8 +113,7 @@ public extension APIITEM {
         }
         return headers
     }
-    public func request(retryCnt:Int = 0, headerArg:RequestHeaderModel, arg:RequestModel,callback:@escaping(ResponseHeaderModel?,ResponseModel?,NSError?)->Void){
-        let usingUrlSession = false
+    func request(retryCnt:Int = 0, headerArg:RequestHeaderModel, arg:RequestModel,callback:@escaping(ResponseHeaderModel?,ResponseModel?,NSError?)->Void){
         var curlText:String?
         if usingStoredData, let storedData = API_STORED_DATA[String(describing:self)] {
             callback(storedData.0 as? Self.ResponseHeaderModel,storedData.1 as? Self.ResponseModel,nil)
@@ -127,7 +125,6 @@ public extension APIITEM {
             print("/////////")
             return
         }
-        var isDone = false
         var param:RequestModel? = arg
         if self.method == .get, var comp = URLComponents(url: url, resolvingAgainstBaseURL: false){
             param = nil
@@ -150,9 +147,6 @@ public extension APIITEM {
                 headerList[key] = value
             }
             let headerObj = try? headerList.data.makeObj(type:self.responseHeaderModel.self)
-            defer {
-                isDone = true
-            }
             if let err = response.error {
                 
                 callback(nil,nil,err as NSError)

@@ -26,7 +26,7 @@ extension TF_API {
         public var responseModel = Response.self
         public var method: Alamofire.HTTPMethod = .post
         public var path: String = "/oauth2/Approval"
-        func exec(response: Decodable) {
+        public func exec(response: Decodable) {
             guard let result = response as? Response else {return}
             TF_User.shared.approval_key = result.approval_key
         }
@@ -66,7 +66,7 @@ extension TF_API {
         public var responseModel = Response.self
         public var method: Alamofire.HTTPMethod = .post
         public var path: String = "/oauth2/tokenP"
-        func exec(response: Decodable) {
+        public func exec(response: Decodable) {
             guard let result = response as? Response else {return}
             TF_User.shared.access_token = result.access_token
             TF_User.shared.token_type = result.token_type
