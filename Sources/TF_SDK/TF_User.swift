@@ -6,12 +6,12 @@
 //
 
 import Foundation
-class TF_User {
-    static func configure(appKey:String, appSecret:String) {
+public class TF_User {
+    public static func configure(appKey:String, appSecret:String) {
         shared.appKey = appKey
         shared.appSecret = appSecret
     }
-    static let shared:TF_User = .init()
+    public static let shared:TF_User = .init()
     var appKey:String?
     var appSecret:String?
     var approval_key:String?
