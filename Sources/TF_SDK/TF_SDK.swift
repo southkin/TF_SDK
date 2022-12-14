@@ -15,7 +15,7 @@ public struct ErrorResponse : Error, Decodable {
     let msg_cd:String
     let msg1:String
 }
-var hantooType:HantooType = .실전
+public var hantooType:HantooType = .실전
 public enum TargetServer {
     case hantoo
     var domain:String {
@@ -50,7 +50,7 @@ public enum TargetServer {
         }
     }
 }
-struct MultipartItem : Codable {
+public struct MultipartItem : Codable {
     var data:Data
     var mimeType:String
     var fileName:String?
