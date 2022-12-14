@@ -12,6 +12,8 @@ let package = Package(
             targets: ["TF_SDK"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/devxoul/Then", .upToNextMajor(from:"2.0.0")),
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.6.1"))
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
     ],
@@ -20,7 +22,7 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
             name: "TF_SDK",
-            dependencies: []),
+            dependencies: ["Alamofire","Then"]),
         .testTarget(
             name: "TF_SDKTests",
             dependencies: ["TF_SDK"]),
