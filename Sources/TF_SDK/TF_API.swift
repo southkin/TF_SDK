@@ -94,6 +94,17 @@ extension TF_API {
             public var ip_addr:String?
             ///Global UID
             public var gt_uid:String?
+            public init(personalseckey: String? = nil, tr_id: String, tr_cont: String? = nil, custtype: String? = nil, seq_no: String? = nil, mac_address: String? = nil, phone_number: String? = nil, ip_addr: String? = nil, gt_uid: String? = nil) {
+                self.personalseckey = personalseckey
+                self.tr_id = tr_id
+                self.tr_cont = tr_cont
+                self.custtype = custtype
+                self.seq_no = seq_no
+                self.mac_address = mac_address
+                self.phone_number = phone_number
+                self.ip_addr = ip_addr
+                self.gt_uid = gt_uid
+            }
         }
         public struct Request:Codable {
             ///종합계좌번호
