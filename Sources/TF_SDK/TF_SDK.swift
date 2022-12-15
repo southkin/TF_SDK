@@ -18,13 +18,13 @@ public struct ErrorResponse : Error, Decodable {
 public var hantooType:HantooType = .실전
 public enum TargetServer {
     case hantoo
-    var domain:String {
+    public var domain:String {
         switch self {
         case .hantoo:
             return hantooType == .실전 ? "https://openapi.koreainvestment.com:9443" : "https://openapivts.koreainvestment.com:29443"
         }
     }
-    var defaultHeader:HTTPHeaders {
+    public var defaultHeader:HTTPHeaders {
         switch self {
         case .hantoo:
             return [
@@ -35,7 +35,7 @@ public enum TargetServer {
             ]
         }
     }
-    func errorChecker(response:Data,curlCmd:String,retryFnc:(()->())?) -> ErrorResponse? {
+    public func errorChecker(response:Data,curlCmd:String,retryFnc:(()->())?) -> ErrorResponse? {
         let info = try? response.makeObj(type: ErrorResponse.self)
         switch Int(info?.rt_cd ?? "0")! {
         case 0:
@@ -51,9 +51,9 @@ public enum TargetServer {
     }
 }
 public struct MultipartItem : Codable {
-    var data:Data
-    var mimeType:String
-    var fileName:String?
+    public var data:Data
+    public var mimeType:String
+    public var fileName:String?
 }
 public protocol MultipartUpload {
 }
